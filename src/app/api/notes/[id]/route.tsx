@@ -2,9 +2,9 @@ import dbConnent from "@/lib/db";
 import Note from "@/models/Note";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }) {
+export async function GET(req: NextRequest, { params }: any) {
   await dbConnent();
-  const { id } = await params;
+  const { id }: { id: string } = await params;
 
   const data = await Note.findById(id);
   if (!data) {
