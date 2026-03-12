@@ -2,6 +2,8 @@
 
 A modern, full-featured notes application built with Next.js 16, MongoDB, and a beautiful UI powered by shadcn/ui and Tailwind CSS.
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/Muhammad-Salman-khan/notes-app-next-mongdb)
+
 ## Features
 
 - **Fast & Responsive** - Built on Next.js 16 with React 19 for optimal performance
@@ -13,15 +15,15 @@ A modern, full-featured notes application built with Next.js 16, MongoDB, and a 
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
-| Database | MongoDB + Mongoose |
-| UI Components | shadcn/ui + Radix UI |
-| Styling | Tailwind CSS v4 |
-| Icons | Lucide React |
-| Fonts | Geist + Inter |
+| Category      | Technology              |
+| ------------- | ----------------------- |
+| Framework     | Next.js 16 (App Router) |
+| Language      | TypeScript              |
+| Database      | MongoDB + Mongoose      |
+| UI Components | shadcn/ui + Radix UI    |
+| Styling       | Tailwind CSS v4         |
+| Icons         | Lucide React            |
+| Fonts         | Geist + Inter           |
 
 ## Getting Started
 
@@ -33,12 +35,14 @@ A modern, full-featured notes application built with Next.js 16, MongoDB, and a 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
-git clone <repository-url>
+git clone <https://github.com/Muhammad-Salman-khan/notes-app-next-mongdb.git>
 cd notes-app-next
 ```
 
 2. Install dependencies:
+
 ```bash
 bun install
 # or
@@ -46,11 +50,13 @@ npm install
 ```
 
 3. Create a `.env` file in the root directory:
+
 ```env
 MONGODB_URI=mongodb://localhost:27017/notes-app
 ```
 
 4. Run the development server:
+
 ```bash
 bun run dev
 # or
@@ -76,12 +82,12 @@ src/
 
 ## Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `bun run dev` | Start development server |
-| `bun run build` | Build for production |
-| `bun run start` | Start production server |
-| `bun run lint` | Run ESLint |
+| Command         | Description              |
+| --------------- | ------------------------ |
+| `bun run dev`   | Start development server |
+| `bun run build` | Build for production     |
+| `bun run start` | Start production server  |
+| `bun run lint`  | Run ESLint               |
 
 ## Configuration
 
@@ -91,8 +97,8 @@ src/
 
 ## Environment Variables
 
-| Variable | Description |
-|----------|-------------|
+| Variable      | Description               |
+| ------------- | ------------------------- |
 | `MONGODB_URI` | MongoDB connection string |
 
 ## Deployment
