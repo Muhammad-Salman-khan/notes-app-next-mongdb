@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Toast from "@/utils/Toast";
 import ThemeProvider from "@/context/ThemeContext";
+import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
@@ -36,7 +37,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen max-w-screen flex flex-col`}
       >
         <ThemeProvider>{children}</ThemeProvider>
-        <Toast />
+        <Toaster theme="system" position="top-center" closeButton={true} />
       </body>
     </html>
   );
