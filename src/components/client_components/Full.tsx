@@ -4,8 +4,7 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-import fetchOrGetAnyData from "@/server/PostNote";
-import PostNote from "@/server/PostNote";
+import { PostNote } from "@/server/PostNote";
 export type createPostType = {
   title: string;
   content: string;
