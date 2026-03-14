@@ -12,7 +12,6 @@ export type createPostType = {
 const SaveNotes = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-
   const placeholders = [
     "Write a quick note before you forget...",
     "What's on your mind right now?",
@@ -34,7 +33,7 @@ const SaveNotes = () => {
       title,
       content,
     };
-    const data = fetchOrGetAnyData("/api/notes", "POST", newPost);
+    const data = fetchOrGetAnyData(`/api/notes`, "POST", newPost);
     setTitle("");
     setContent("");
   };
