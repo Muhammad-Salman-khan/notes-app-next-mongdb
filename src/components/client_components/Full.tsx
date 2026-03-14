@@ -38,9 +38,7 @@ const SaveNotes = () => {
     if (!result?.success) {
       return toast.error(`failed to Post`);
     }
-    console.log(result.data);
-
-    // toast.success(`Post created successfully ${data.data.title}`);
+    toast.success(`Post created successfully ${result.data.title}`);
     setTitle("");
     setContent("");
   };
