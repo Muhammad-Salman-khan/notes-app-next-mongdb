@@ -2,6 +2,7 @@ import SaveNotes from "@/components/client_components/Full";
 import NotesCard from "@/components/meteors-demo";
 import dbConnent from "@/lib/db";
 import Note from "@/models/Note";
+import { toast } from "sonner";
 export type dataType = {
   _id?: string;
   key?: string;
@@ -12,7 +13,7 @@ export type dataType = {
 };
 export default async function Home() {
   await dbConnent();
-  const res = await Note.find({}).sort({ createdAt: -1 });
+  const res = await Note.find({}).sort({ createdAt: -1 }).lean();
   if (!res) {
     throw new Error("Failed to fetch data ");
   }
