@@ -1,7 +1,7 @@
 import SaveNotes from "@/components/client_components/Full";
 import NotesCard from "@/components/meteors-demo";
-import dbConnent from "@/lib/db";
-import Note from "@/models/Note";
+import { getAllData } from "@/server/action";
+import { toast } from "sonner";
 export type dataType = {
   _id?: string;
   key?: string;
@@ -13,12 +13,11 @@ export type dataType = {
 export default async function Home() {
   let data;
   try {
-    await dbConnent();
-    const res = await Note.find({}).sort({ createdAt: -1 }).lean();
-    if (!res) {
-      throw new Error("Failed to fetch data ");
+    const result = await getAllData();
+    if (!result?.success) {
+      toast.error("failed to get data");
     }
-    data = res;
+    data = result.data;
   } catch (error: any) {
     console.error(error);
   }
