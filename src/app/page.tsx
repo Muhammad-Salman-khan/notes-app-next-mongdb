@@ -2,7 +2,6 @@ import SaveNotes from "@/components/client_components/Full";
 import NotesCard from "@/components/meteors-demo";
 import dbConnent from "@/lib/db";
 import Note from "@/models/Note";
-import { toast } from "sonner";
 export type dataType = {
   _id?: string;
   key?: string;
@@ -12,13 +11,17 @@ export type dataType = {
   updatedAt: string;
 };
 export default async function Home() {
-  await dbConnent();
-  const res = await Note.find({}).sort({ createdAt: -1 }).lean();
-  if (!res) {
-    throw new Error("Failed to fetch data ");
+  let data;
+  try {
+    await dbConnent();
+    const res = await Note.find({}).sort({ createdAt: -1 }).lean();
+    if (!res) {
+      throw new Error("Failed to fetch data ");
+    }
+    data = res;
+  } catch (error: any) {
+    console.error(error);
   }
-  const data = res;
-
   return (
     <>
       <div className="min-h-screen">
@@ -29,7 +32,7 @@ export default async function Home() {
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-6 max-w-8xl mx-auto">
-          {data.map(
+          {data?.map(
             ({ _id, title, content, createdAt, updatedAt }: dataType) => (
               <NotesCard
                 key={_id}

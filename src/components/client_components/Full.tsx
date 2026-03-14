@@ -4,7 +4,8 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-import fetchOrGetAnyData from "@/services/post/PostNote";
+import fetchOrGetAnyData from "@/server/PostNote";
+import PostNote from "@/server/PostNote";
 export type createPostType = {
   title: string;
   content: string;
@@ -33,7 +34,13 @@ const SaveNotes = () => {
       title,
       content,
     };
-    const data = fetchOrGetAnyData(`/api/notes`, "POST", newPost);
+    const result = await PostNote(newPost);
+    if (!result?.success) {
+      return toast.error(`failed to Post`);
+    }
+    console.log(result.data);
+
+    // toast.success(`Post created successfully ${data.data.title}`);
     setTitle("");
     setContent("");
   };
