@@ -1,17 +1,8 @@
+import { dataType } from "@/app/page";
 import { Calendar } from "lucide-react";
 import Link from "next/link";
 
-export default function NotesCard({
-  title,
-  content,
-  createdAt,
-}: {
-  key: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}) {
+export default function NotesCard({ title, content, createdAt }: dataType) {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     day: "numeric",

@@ -4,7 +4,11 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
-
+import fetchOrGetAnyData from "@/services/post/PostNote";
+export type createPostType = {
+  title: string;
+  content: string;
+};
 const SaveNotes = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -26,25 +30,13 @@ const SaveNotes = () => {
     if (!title || !content) {
       return toast.error("Fill all the fields");
     }
-    try {
-      const res = await fetch("/api/notes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content }),
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err?.message || "Something went wrong");
-      }
-      const data = await res.json();
-      console.log();
-      toast.success(`Note Created Succssfully, ${data.data.title}`);
-      setTitle("");
-      setContent("");
-    } catch (error: any) {
-      console.error(error);
-      toast.error(`failed to create Note. ${error?.message}`);
-    }
+    const newPost: createPostType = {
+      title,
+      content,
+    };
+    const data = fetchOrGetAnyData("/api/notes", "POST", newPost);
+    setTitle("");
+    setContent("");
   };
 
   return (

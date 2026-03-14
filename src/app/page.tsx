@@ -1,7 +1,14 @@
 import SaveNotes from "@/components/client_components/Full";
 import NotesCard from "@/components/meteors-demo";
 import dbConnent from "@/lib/db";
-
+export type dataType = {
+  _id?: string;
+  key?: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export default async function Home() {
   await dbConnent();
   const res = await fetch("http://localhost:3000/api/notes", {
@@ -24,19 +31,7 @@ export default async function Home() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-6 max-w-8xl mx-auto">
           {data.data.map(
-            ({
-              _id,
-              title,
-              content,
-              createdAt,
-              updatedAt,
-            }: {
-              _id: string;
-              title: string;
-              content: string;
-              createdAt: string;
-              updatedAt: string;
-            }) => (
+            ({ _id, title, content, createdAt, updatedAt }: dataType) => (
               <NotesCard
                 key={_id}
                 title={title}
