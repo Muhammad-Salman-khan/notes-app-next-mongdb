@@ -49,7 +49,10 @@ export default async function Home() {
                 />
               ),
             )
-          : <p>No Notes aviable</p>}
+          : <p className="text-center font-extrabold text-2xl">
+              No Notes available!
+            </p>
+          }
         </div>
       </div>
     </>
