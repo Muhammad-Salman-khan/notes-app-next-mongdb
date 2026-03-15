@@ -1,6 +1,6 @@
 import { dataType } from "@/app/page";
 import { Calendar } from "lucide-react";
-import Link from "next/link";
+import { Button } from "./ui/button";
 
 export default function NotesCard({ title, content, createdAt }: dataType) {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -13,14 +13,18 @@ export default function NotesCard({ title, content, createdAt }: dataType) {
   return (
     <div className="group relative max-w-3xl">
       {/* Glow */}
-      <div className="absolute inset-0 scale-[0.85] rounded-3xl bg-gradient-to-r from-blue-600 to-teal-500 blur-2xl transition-all duration-500 group-hover:scale-95 group-hover:opacity-80 opacity-60" />
+      <div className="absolute  inset-0 scale-[0.85] rounded-3xl bg-linear-to-r from-blue-600 to-teal-500 blur-2xl transition-all duration-500 group-hover:scale-95 group-hover:opacity-80 opacity-60" />
 
       {/* Card */}
-      <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card px-5 py-6 shadow-lg transition-transform duration-300 group-hover:-translate-y-1 sm:px-6 sm:py-7">
+      <div className="relative flex h-full  rounded-2xl border border-border  flex-col justify-between overflow-hidden bg-card px-5 py-6 shadow-lg transition-transform duration-300 group-hover:-translate-y-1 sm:px-6 sm:py-7">
         {/* Date badge */}
         <div className="mb-4 flex items-center gap-2 w-fit rounded-full border border-border bg-muted px-3 py-1">
           <Calendar size={15} />
           <span className="text-xs text-muted-foreground">{formattedDate}</span>
+          <div>
+            <Button className="font-extrabold">Edit</Button>
+            <Button className="font-extrabold">Delete</Button>
+          </div>
         </div>
 
         {/* Title */}
