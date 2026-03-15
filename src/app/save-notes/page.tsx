@@ -6,7 +6,7 @@ import { dataType } from "../page";
 import Link from "next/link";
 
 const page = async () => {
-  let data;
+  let data: any;
   try {
     await dbConnent();
     const result = await getAllData();
@@ -30,17 +30,21 @@ const page = async () => {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-6 max-w-8xl mx-auto">
-          {data?.map(
-            ({ _id, title, content, createdAt, updatedAt }: dataType) => (
-              <NotesCard
-                key={_id}
-                title={title}
-                content={content}
-                createdAt={createdAt}
-                updatedAt={updatedAt}
-              />
-            ),
-          )}
+          {data.length > 0 ?
+            data?.map(
+              ({ _id, title, content, createdAt, updatedAt }: dataType) => (
+                <Link key={_id} href={`/save-notes/${_id}`}>
+                  <NotesCard
+                    key={_id}
+                    title={title}
+                    content={content}
+                    createdAt={createdAt}
+                    updatedAt={updatedAt}
+                  />
+                </Link>
+              ),
+            )
+          : <p> No Notes aviable</p>}
         </div>
       </div>
     </>
