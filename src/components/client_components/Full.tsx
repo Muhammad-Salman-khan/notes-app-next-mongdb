@@ -25,20 +25,24 @@ const SaveNotes = () => {
     "Tip: Write the title first — it helps you think clearly.",
   ];
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!title || !content) {
-      return toast.error("Fill all the fields");
+    try {
+      e.preventDefault();
+      if (!title || !content) {
+        return toast.error("Fill all the fields");
+      }
+      const newPost: createPostType = {
+        title,
+        content,
+      };
+      const result = await PostNote(newPost);
+      setContent("");
+      if (!result?.success) {
+        return toast.error(`failed to Post`);
+      }
+      toast.success(`Post created successfully ${result.data.title}`);
+    } catch (error: any) {
+      return toast.error(error);
     }
-    const newPost: createPostType = {
-      title,
-      content,
-    };
-    const result = await PostNote(newPost);
-    setContent("");
-    if (!result?.success) {
-      return toast.error(`failed to Post`);
-    }
-    toast.success(`Post created successfully ${result.data.title}`);
   };
 
   return (

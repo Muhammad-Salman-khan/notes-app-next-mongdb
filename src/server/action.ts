@@ -1,4 +1,5 @@
 "use server";
+import { dataType } from "@/app/page";
 import { createPostType } from "@/components/client_components/Full";
 import dbConnent from "@/lib/db";
 import Note from "@/models/Note";
@@ -28,6 +29,19 @@ export const DeletePost = async (id: string) => {
   try {
     await dbConnent();
     const result = await Note.findByIdAndDelete(id).lean();
+    const notes = JSON.parse(JSON.stringify(result));
+    revalidatePath("/");
+    return { success: true, data: notes };
+  } catch (error: any) {
+    console.error(error);
+  }
+};
+export const UpdatePost = async (id: string, newData: Partial<dataType>) => {
+  try {
+    await dbConnent();
+    const result = await Note.findByIdAndUpdate(id, newData, {
+      new: true,
+    }).lean();
     const notes = JSON.parse(JSON.stringify(result));
     revalidatePath("/");
     return { success: true, data: notes };
