@@ -1,37 +1,32 @@
-import SaveNotes from "@/components/client_components/Full";
 import NotesCard from "@/components/meteors-demo";
+import dbConnent from "@/lib/db";
 import { getAllData } from "@/server/action";
-import Link from "next/link";
 import { toast } from "sonner";
-export type dataType = {
-  _id?: string;
-  key?: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-};
-export default async function Home() {
+import { dataType } from "../page";
+import Link from "next/link";
+
+const page = async () => {
   let data;
   try {
+    await dbConnent();
     const result = await getAllData();
     if (!result?.success) {
-      toast.error("failed to get data");
+      toast.error(`failed to fetch data`);
     }
-    data = result.data.splice(0, 3);
+    data = result.data;
   } catch (error: any) {
     console.error(error);
+    toast.error(`failed to fetch data, ${error?.message}`);
   }
   return (
     <>
       <div className="min-h-screen">
-        <SaveNotes />
-        <div className="w-full flex flex-col text-center gap-2 md:flex-row md:items-center md:justify-between p-3 md:gap-6">
+        <div className="w-full flex flex-col p-4  text-center gap-2 md:flex-row md:items-center md:justify-between md:gap-6">
           <h2 className="font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground">
-            See your Recent Notes
+            See your All Notes
           </h2>
           <p className="text-sm sm:text-base font-extrabold whitespace-nowrap cursor-pointer shrink-0">
-            <Link href={"/save-notes/"}>See all Notes</Link>
+            <Link href={"/"}>Create Notes!</Link>
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-6 max-w-8xl mx-auto">
@@ -50,4 +45,6 @@ export default async function Home() {
       </div>
     </>
   );
-}
+};
+
+export default page;
