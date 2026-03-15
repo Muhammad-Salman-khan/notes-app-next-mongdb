@@ -1,8 +1,35 @@
+"use client";
 import { dataType } from "@/app/page";
 import { Calendar } from "lucide-react";
 import { Button } from "./ui/button";
+import { DeletePost } from "@/server/action";
+import { toast } from "sonner";
+import Link from "next/link";
 
-export default function NotesCard({ title, content, createdAt }: dataType) {
+export default function NotesCard({
+  key,
+  id,
+  _id,
+  title,
+  content,
+  createdAt,
+}: dataType) {
+  const deletePost = async (id: string) => {
+    try {
+      const result = await DeletePost(id);
+      if (!result?.success) {
+        throw new Error("failed to delete Note");
+      }
+      toast.success(
+        `Post deleted Successfully with the id: ${result.data._id}`,
+      );
+    } catch (error: any) {
+      console.error(error);
+      return toast.error(
+        `something went wrong while deleting the Note.${error?.message}`,
+      );
+    }
+  };
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     day: "numeric",
@@ -23,7 +50,7 @@ export default function NotesCard({ title, content, createdAt }: dataType) {
           <span className="text-xs text-muted-foreground">{formattedDate}</span>
           <div>
             <Button className="font-extrabold">Edit</Button>
-            <Button className="font-extrabold">Delete</Button>
+            <Button onClick={() => deletePost(id!)}>Delete</Button>
           </div>
         </div>
 
@@ -36,27 +63,28 @@ export default function NotesCard({ title, content, createdAt }: dataType) {
         <p className="relative z-10 mb-5 text-sm text-muted-foreground leading-relaxed line-clamp-3">
           {content}
         </p>
-
-        {/* Footer */}
-        <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-primary transition-colors group-hover:text-primary/80">
-            Open note
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </span>
-        </div>
+        <Link href={`/save-notes/${id}`}>
+          {/* Footer */}
+          <div className="flex items-center justify-between">
+            <span className="inline-flex items-center gap-1 text-xs font-medium text-primary transition-colors group-hover:text-primary/80">
+              Open note
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </span>
+          </div>
+        </Link>
       </div>
     </div>
   );

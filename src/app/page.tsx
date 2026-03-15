@@ -5,6 +5,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 export type dataType = {
   _id?: string;
+  id?: string;
   key?: string;
   title: string;
   content: string;
@@ -40,6 +41,7 @@ export default async function Home() {
               ({ _id, title, content, createdAt, updatedAt }: dataType) => (
                 <NotesCard
                   key={_id}
+                  id={_id?.toString()}
                   title={title}
                   content={content}
                   createdAt={createdAt}

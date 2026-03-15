@@ -33,15 +33,14 @@ const page = async () => {
           {data.length > 0 ?
             data?.map(
               ({ _id, title, content, createdAt, updatedAt }: dataType) => (
-                <Link key={_id} href={`/save-notes/${_id}`}>
-                  <NotesCard
-                    key={_id}
-                    title={title}
-                    content={content}
-                    createdAt={createdAt}
-                    updatedAt={updatedAt}
-                  />
-                </Link>
+                <NotesCard
+                  id={_id?.toString()}
+                  key={_id?.toString()}
+                  title={title}
+                  content={content}
+                  createdAt={createdAt}
+                  updatedAt={updatedAt}
+                />
               ),
             )
           : <p> No Notes aviable</p>}

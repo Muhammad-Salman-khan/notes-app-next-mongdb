@@ -9,6 +9,12 @@ export const getAllData = async () => {
   const data = getData;
   return { success: true, data: data };
 };
+export const noteById = async (id: string) => {
+  await dbConnent();
+  const getData = await Note.findById(id).lean();
+  const data = getData;
+  return { success: true, data: data };
+};
 
 export const PostNote = async (data: createPostType) => {
   await dbConnent();
@@ -16,4 +22,16 @@ export const PostNote = async (data: createPostType) => {
   revalidatePath("/");
   const notes = JSON.parse(JSON.stringify(createdNote));
   return { success: true, data: notes };
+};
+
+export const DeletePost = async (id: string) => {
+  try {
+    await dbConnent();
+    const result = await Note.findByIdAndDelete(id).lean();
+    const notes = JSON.parse(JSON.stringify(result));
+    revalidatePath("/");
+    return { success: true, data: notes };
+  } catch (error: any) {
+    console.error(error);
+  }
 };
