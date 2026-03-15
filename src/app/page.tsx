@@ -14,10 +14,12 @@ export default async function Home() {
   let data;
   try {
     const result = await getAllData();
+    console.log(result);
+
     if (!result?.success) {
       toast.error("failed to get data");
     }
-    data = result.data;
+    data = result.data.splice(0, 3);
   } catch (error: any) {
     console.error(error);
   }

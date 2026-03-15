@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 export const getAllData = async () => {
   await dbConnent();
   const getData = await Note.find({}).sort({ createdAt: -1 }).lean();
-  // const data = JSON.parse(JSON.stringify(getData));
   const data = getData;
   return { success: true, data: data };
 };

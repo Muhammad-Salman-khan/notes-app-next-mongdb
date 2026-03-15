@@ -34,12 +34,11 @@ const SaveNotes = () => {
       content,
     };
     const result = await PostNote(newPost);
+    setContent("");
     if (!result?.success) {
       return toast.error(`failed to Post`);
     }
     toast.success(`Post created successfully ${result.data.title}`);
-    setTitle("");
-    setContent("");
   };
 
   return (
@@ -60,7 +59,11 @@ const SaveNotes = () => {
           placeholder="Write your note here..."
           className="min-h-40 sm:min-h-56 resize-none"
         />
-        <Button type="submit" onClick={(e: any) => onSubmit(e)}>
+        <Button
+          disabled={!title || !content}
+          type="submit"
+          onClick={(e: any) => onSubmit(e)}
+        >
           Save Note
         </Button>
       </div>
