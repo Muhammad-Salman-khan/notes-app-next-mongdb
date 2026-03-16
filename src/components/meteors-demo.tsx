@@ -2,9 +2,8 @@
 import { dataType } from "@/app/page";
 import { Calendar } from "lucide-react";
 import { Button } from "./ui/button";
-import { DeletePost } from "@/server/action";
-import { toast } from "sonner";
 import Link from "next/link";
+import DeletePostFunction from "@/helpers/DeleteFuntio";
 
 export default function NotesCard({
   key,
@@ -14,22 +13,6 @@ export default function NotesCard({
   content,
   createdAt,
 }: dataType) {
-  const deletePost = async (id: string) => {
-    try {
-      const result = await DeletePost(id);
-      if (!result?.success) {
-        throw new Error("failed to delete Note");
-      }
-      toast.success(
-        `Post deleted Successfully with the id: ${result.data._id}`,
-      );
-    } catch (error: any) {
-      console.error(error);
-      return toast.error(
-        `something went wrong while deleting the Note.${error?.message}`,
-      );
-    }
-  };
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     day: "numeric",
@@ -39,10 +22,7 @@ export default function NotesCard({
 
   return (
     <div className="group relative max-w-3xl">
-      {/* Glow */}
       <div className="absolute  inset-0 scale-[0.85] rounded-3xl bg-linear-to-r from-blue-600 to-teal-500 blur-2xl transition-all duration-500 group-hover:scale-95 group-hover:opacity-80 opacity-60" />
-
-      {/* Card */}
       <div className="relative flex h-full  rounded-2xl border border-border  flex-col justify-between overflow-hidden bg-card px-5 py-6 shadow-lg transition-transform duration-300 group-hover:-translate-y-1 sm:px-6 sm:py-7">
         {/* Date badge */}
         <div className="mb-4 flex items-center gap-2 w-fit rounded-full border border-border bg-muted px-3 py-1">
@@ -52,7 +32,7 @@ export default function NotesCard({
             <Link href={`/save-notes/${id}/edit`}>
               <Button className="font-extrabold">Edit</Button>
             </Link>
-            <Button onClick={() => deletePost(id!)}>Delete</Button>
+            <Button onClick={() => DeletePostFunction(id!)}>Delete</Button>
           </div>
         </div>
 
