@@ -49,7 +49,9 @@ export default function NotesCard({
           <Calendar size={15} />
           <span className="text-xs text-muted-foreground">{formattedDate}</span>
           <div>
-            <Button className="font-extrabold">Edit</Button>
+            <Link href={`/save-notes/${id}/edit`}>
+              <Button className="font-extrabold">Edit</Button>
+            </Link>
             <Button onClick={() => deletePost(id!)}>Delete</Button>
           </div>
         </div>
