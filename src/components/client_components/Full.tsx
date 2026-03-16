@@ -9,21 +9,14 @@ export type createPostType = {
   title: string;
   content: string;
 };
-const SaveNotes = () => {
+export const placeholders = [
+  "Write a quick note before you forget...",
+  "What's on your mind right now?",
+];
+const SaveNotes = ({ Heading }: { Heading: string }) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const placeholders = [
-    "Write a quick note before you forget...",
-    "What's on your mind right now?",
-    "Tip: Use titles like 'Meeting – Mar 13' to find notes faster.",
-    "Jot down that idea you've been sitting on.",
-    "Tip: Keep descriptions short — one thought per note.",
-    "What do you need to remember tomorrow?",
-    "Tip: Star important notes so they stay at the top.",
-    "Summarize today in one sentence.",
-    "What problem are you trying to solve?",
-    "Tip: Write the title first — it helps you think clearly.",
-  ];
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -49,7 +42,7 @@ const SaveNotes = () => {
     <div className="max-h-3/12 w-full flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-2xl flex flex-col gap-6">
         <h2 className="font-extrabold text-2xl sm:text-4xl md:text-5xl text-center text-foreground">
-          Save Any Notes!
+          {Heading}
         </h2>
         <PlaceholdersAndVanishInput
           placeholders={placeholders}

@@ -2,6 +2,7 @@ import SaveNotes from "@/components/client_components/Full";
 import NotesCard from "@/components/meteors-demo";
 import { getAllData } from "@/server/action";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { toast } from "sonner";
 export type dataType = {
   _id?: string;
@@ -16,8 +17,9 @@ export default async function Home() {
   let data: any;
   try {
     const result = await getAllData();
-    if (!result?.success) {
+    if (!result.success || !result.data) {
       toast.error("failed to get data");
+      setTimeout(() => notFound(), 500);
     }
     data = result.data.splice(0, 3);
   } catch (error: any) {
@@ -26,7 +28,7 @@ export default async function Home() {
   return (
     <>
       <div className="min-h-screen">
-        <SaveNotes />
+        <SaveNotes Heading={`Save Any Notes!`} />
         <div className="w-full flex flex-col text-center gap-2 md:flex-row md:items-center md:justify-between p-3 md:gap-6">
           <h2 className="font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground">
             See your Recent Notes
