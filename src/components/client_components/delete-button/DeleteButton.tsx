@@ -9,7 +9,9 @@ const DeleteButton = ({ Id }: { Id: string }) => {
       <Button
         onClick={() => {
           DeletePostFunction(Id!);
-          router.push("/save-notes");
+          setTimeout(() => {
+            router.push("/save-notes");
+          }, 1000);
         }}
         className="text-xs px-3 py-1.5 rounded-md border border-destructive text-destructive hover:bg-destructive/10 transition-colors"
       >
