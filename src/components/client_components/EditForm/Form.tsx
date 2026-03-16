@@ -6,6 +6,7 @@ import { createPostType, placeholders } from "../Full";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 const Form = ({
   id,
   Title,
@@ -15,6 +16,7 @@ const Form = ({
   Title: string;
   Content: string;
 }) => {
+  const router = useRouter();
   const [title, setTitle] = useState<string>(Title);
   const [content, setContent] = useState<string>(Content);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,6 +35,7 @@ const Form = ({
         return toast.error(`failed to Post`);
       }
       toast.success(`Post updated successfully ${result.data.title}`);
+      router.push("/save-notes");
     } catch (error: any) {
       return toast.error(error);
     }
