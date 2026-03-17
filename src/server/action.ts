@@ -9,7 +9,6 @@ export const getAllData = async () => {
   try {
     await dbConnent();
     const data = await Note.find({}).sort({ createdAt: -1 }).lean();
-    revalidatePath("/");
     return { success: true, data: serialize(data) };
   } catch (error: any) {
     console.error("[getAllData]", error);
@@ -25,9 +24,9 @@ export const noteById = async (id: string) => {
     }
     const data = await Note.findById(id).lean();
     if (!data) {
+      revalidatePath("/");
       return { success: false, data: null };
     }
-    revalidatePath("/");
     return { success: true, data: serialize(data) };
   } catch (error: any) {
     console.error("[noteById]", error);
