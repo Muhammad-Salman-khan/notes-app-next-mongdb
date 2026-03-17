@@ -16,6 +16,17 @@ export const getAllData = async () => {
     return { success: false, data: null };
   }
 };
+export const getNewData = async () => {
+  try {
+    await dbConnent();
+    const data = await Note.find({}).sort({ createdAt: -1 }).lean();
+    return { success: true, data: serialize(data) };
+  } catch (error: any) {
+    console.error("[getNewData]", error);
+
+    return { success: false, data: null };
+  }
+};
 export const noteById = async (id: string) => {
   try {
     await dbConnent();
