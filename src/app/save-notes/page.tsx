@@ -1,6 +1,6 @@
+export const dynamic = "force-dynamic";
 import NotesCard from "@/components/meteors-demo";
 import { getNewData } from "@/server/action";
-import { toast } from "sonner";
 import { dataType } from "../page";
 import Link from "next/link";
 import { notFound } from "next/navigation";

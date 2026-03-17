@@ -4,6 +4,7 @@ import dbConnent from "@/lib/db";
 import Note from "@/models/Note";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
+
 const serialize = (data: any) => JSON.parse(JSON.stringify(data));
 export const getAllData = async () => {
   try {
