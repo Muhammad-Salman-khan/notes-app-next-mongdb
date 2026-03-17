@@ -4,7 +4,6 @@ import { getAllData } from "@/server/action";
 import { toast } from "sonner";
 import { dataType } from "../page";
 import Link from "next/link";
-
 const page = async () => {
   let data: any;
   try {
@@ -30,7 +29,7 @@ const page = async () => {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-6 max-w-8xl mx-auto">
-          {data.length > 0 ?
+          {data.length > 0 ? (
             data?.map(
               ({ _id, title, content, createdAt, updatedAt }: dataType) => (
                 <NotesCard
@@ -43,10 +42,11 @@ const page = async () => {
                 />
               ),
             )
-          : <p className="text-center font-extrabold text-2xl">
+          ) : (
+            <p className="text-center font-extrabold text-2xl">
               No Notes available!
             </p>
-          }
+          )}
         </div>
       </div>
     </>

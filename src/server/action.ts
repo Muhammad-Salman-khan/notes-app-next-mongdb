@@ -74,6 +74,7 @@ export const UpdatePost = async (
     }
     const data = await Note.findByIdAndUpdate(id, newData, {
       new: true,
+      runValidators: true,
     }).lean();
     if (!data) {
       return { success: false, data: null };
