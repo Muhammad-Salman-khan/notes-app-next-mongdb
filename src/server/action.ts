@@ -3,7 +3,7 @@ import { createPostType } from "@/components/client_components/Full";
 import dbConnent from "@/lib/db";
 import Note from "@/models/Note";
 import mongoose from "mongoose";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 const serialize = (data: any) => JSON.parse(JSON.stringify(data));
 export const getAllData = async () => {
@@ -36,7 +36,7 @@ export const noteById = async (id: string) => {
     }
     const data = await Note.findById(id).lean();
     if (!data) {
-      revalidatePath("/");
+      revalidatePath("/", "page");
       return { success: false, data: null };
     }
     return { success: true, data: serialize(data) };

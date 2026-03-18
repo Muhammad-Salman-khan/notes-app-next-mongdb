@@ -56,11 +56,7 @@ const SaveNotes = ({ Heading }: { Heading: string }) => {
      placeholder="Write your note here..."
      className="min-h-40 sm:min-h-56 resize-none"
     />
-    <Button
-     disabled={!title || !content}
-     type="submit"
-     onClick={(e: any) => onSubmit(e)}
-    >
+    <Button disabled={!content} type="submit" onClick={(e: any) => onSubmit(e)}>
      Save Note
     </Button>
    </div>
