@@ -24,19 +24,23 @@ const SaveNotes = ({ Heading }: { Heading: string }) => {
       if (!title || !content) {
         return toast.error("Fill all the fields");
       }
+      setLoading(true);
       const newPost: createPostType = {
         title,
         content,
       };
       const result = await PostNote(newPost);
-      setLoading(!loading);
-      setContent("");
+
       if (!result?.success) {
         return toast.error(`failed to Post`);
       }
       toast.success(`Post created successfully ${result.data.title}`);
+      setTitle("");
+      setContent("");
     } catch (error: any) {
       return toast.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,7 +67,7 @@ const SaveNotes = ({ Heading }: { Heading: string }) => {
           type="submit"
           onClick={(e: any) => onSubmit(e)}
         >
-          Save Note
+          {loading ? "Creating...." : "Save Note"}
         </Button>
       </div>
     </div>
