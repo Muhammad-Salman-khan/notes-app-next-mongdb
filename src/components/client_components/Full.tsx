@@ -24,10 +24,14 @@ const SaveNotes = ({ Heading }: { Heading: string }) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      if (!navigator.onLine) {
+        toast.error("No internet connection");
+        return;
+      }
+
       if (!title || !content) {
         return toast.error("Fill all the fields");
       }
