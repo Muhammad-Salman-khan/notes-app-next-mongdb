@@ -90,6 +90,9 @@ export const UpdatePost = async (
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return { success: false, data: null };
     }
+    if (!newData?.title?.trim() || !newData?.content?.trim()) {
+      return { success: false, data: null };
+    }
     await dbConnent();
     const data = await Note.findByIdAndUpdate(id, newData, {
       returnDocument: "after",
