@@ -3,7 +3,7 @@ import { createPostType } from "@/components/client_components/Full";
 import dbConnent from "@/lib/db";
 import Note from "@/models/Note";
 import mongoose from "mongoose";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 const serialize = (data: any) => JSON.parse(JSON.stringify(data));
 export const getAllData = async () => {
@@ -30,10 +30,13 @@ export const getNewData = async () => {
 };
 export const noteById = async (id: string) => {
   try {
-    await dbConnent();
+    if (!id?.trim()) {
+      return { success: false, data: null };
+    }
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return { success: false, data: null };
     }
+    await dbConnent();
     const data = await Note.findById(id).lean();
     if (!data) {
       return { success: false, data: null };
@@ -47,14 +50,15 @@ export const noteById = async (id: string) => {
 
 export const PostNote = async (Data: createPostType) => {
   try {
-    // code here
+    if (!Data.title?.trim() || !Data.content?.trim()) {
+      return { success: false, data: null };
+    }
     await dbConnent();
     const data = await Note.create(Data);
     revalidatePath("/");
     return { success: true, data: serialize(data) };
   } catch (error: any) {
     console.error("[PostNote]", error);
-    return { success: false, data: null };
   }
 };
 
@@ -80,10 +84,13 @@ export const UpdatePost = async (
   newData: Partial<createPostType>,
 ) => {
   try {
-    await dbConnent();
+    if (!id?.trim()) {
+      return { success: false, data: null };
+    }
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return { success: false, data: null };
     }
+    await dbConnent();
     const data = await Note.findByIdAndUpdate(id, newData, {
       returnDocument: "after",
       runValidators: true,
