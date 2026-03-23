@@ -67,7 +67,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                     </div>
                     <div className="flex gap-2 shrink-0">
                       <Link href={`/save-notes/${id}/edit`}>
-                        <Button className="gap-2 font-semibold bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 shadow-lg">
+                        <Button className="gap-2 font-semibold shadow-lg">
                           <Edit2 className="w-4 h-4" />
                           Edit
                         </Button>
