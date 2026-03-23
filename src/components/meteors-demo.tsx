@@ -1,6 +1,6 @@
 "use client";
 import { dataType } from "@/app/page";
-import { Calendar } from "lucide-react";
+import { Calendar, Edit2, Trash2, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import DeletePostFunction from "@/helpers/DeleteFuntio";
@@ -14,59 +14,74 @@ export default function NotesCard({
   createdAt,
 }: dataType) {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
+    weekday: "short",
     day: "numeric",
-    month: "numeric",
+    month: "short",
     year: "numeric",
   }).format(new Date(createdAt));
 
   return (
-    <div className="group relative max-w-3xl">
-      <div className="absolute  inset-0 scale-[0.85] rounded-3xl bg-linear-to-r from-blue-600 to-teal-500 blur-2xl transition-all duration-500 group-hover:scale-95 group-hover:opacity-80 opacity-60" />
-      <div className="relative flex h-full  rounded-2xl border border-border  flex-col justify-between overflow-hidden bg-card px-5 py-6 shadow-lg transition-transform duration-300 group-hover:-translate-y-1 sm:px-6 sm:py-7">
-        {/* Date badge */}
-        <div className="mb-4 flex items-center gap-2 w-fit rounded-full border border-border bg-muted px-3 py-1">
-          <Calendar size={15} />
-          <span className="text-xs text-muted-foreground">{formattedDate}</span>
-          <div>
-            <Link href={`/save-notes/${id}/edit`}>
-              <Button className="font-extrabold">Edit</Button>
-            </Link>
-            <Button onClick={() => DeletePostFunction(id!)}>Delete</Button>
-          </div>
-        </div>
+    <div className="group relative">
+      {/* Glow effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600/20 to-teal-500/20 blur-xl transition-all duration-500 group-hover:from-blue-600/40 group-hover:to-teal-500/40 group-hover:scale-105" />
 
-        {/* Title */}
-        <h2 className="relative z-10 mb-2 text-base font-semibold text-foreground leading-snug sm:text-lg line-clamp-1">
-          {title}
-        </h2>
+      <div className="relative h-full rounded-2xl border border-border bg-card overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+        {/* Gradient top border */}
+        <div className="h-1.5 bg-gradient-to-r from-blue-600 to-teal-500" />
 
-        {/* Content */}
-        <p className="relative z-10 mb-5 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-          {content}
-        </p>
-        <Link href={`/save-notes/${id}`}>
-          {/* Footer */}
-          <div className="flex items-center justify-between">
-            <span className="inline-flex items-center gap-1 text-xs font-medium text-primary transition-colors group-hover:text-primary/80">
-              Open note
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
+        <div className="p-5 flex flex-col h-full">
+          {/* Header with date and actions */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 border border-border">
+              <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground font-medium">
+                {formattedDate}
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Link href={`/save-notes/${id}/edit`}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 hover:bg-blue-100 dark:hover:bg-blue-900"
+                >
+                  <Edit2 className="w-4 h-4 text-blue-600" />
+                </Button>
+              </Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => DeletePostFunction(id!)}
+                className="h-8 w-8 hover:bg-red-100 dark:hover:bg-red-900"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </span>
+                <Trash2 className="w-4 h-4 text-red-600" />
+              </Button>
+            </div>
           </div>
-        </Link>
+
+          {/* Title */}
+          <h2 className="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+            {title}
+          </h2>
+
+          {/* Content */}
+          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-grow">
+            {content}
+          </p>
+
+          {/* Footer with CTA */}
+          <Link href={`/save-notes/${id}`} className="mt-auto">
+            <div className="flex items-center justify-between pt-4 border-t border-border/50">
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary group-hover:text-blue-600 transition-colors">
+                Read Note
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </span>
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <ArrowRight className="w-4 h-4 text-white" />
+              </div>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );

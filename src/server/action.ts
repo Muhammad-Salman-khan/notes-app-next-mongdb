@@ -36,7 +36,6 @@ export const noteById = async (id: string) => {
     }
     const data = await Note.findById(id).lean();
     if (!data) {
-      revalidatePath("/", "page");
       return { success: false, data: null };
     }
     return { success: true, data: serialize(data) };
